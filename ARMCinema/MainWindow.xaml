@@ -1,0 +1,102 @@
+﻿<Window x:Class="ARMCinema.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ARMCinema"
+        mc:Ignorable="d"
+        Title="Ввод фильмов" Height="600" Width="800" MinHeight="600" MinWidth="800" MaxHeight="600" MaxWidth="800" Background="LightCyan">
+    <Window.Resources>
+        <SolidColorBrush Color="GhostWhite" x:Key="ghostWhite"></SolidColorBrush>
+        <SolidColorBrush Color="Gainsboro" x:Key="gais"></SolidColorBrush>
+        <SolidColorBrush Color="Green" x:Key="green"></SolidColorBrush>
+        <SolidColorBrush Color="Red" x:Key="red"></SolidColorBrush>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="gradient">
+            <GradientStop Color="LightBlue" Offset="0.01"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="{StaticResource green}" BorderThickness="1" Background="{StaticResource gradient}" Padding="5" CornerRadius="15">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RedColor" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border2" BorderBrush="{StaticResource red}" BorderThickness="1" Background="{StaticResource gradient}" Padding="5" CornerRadius="15">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border2" Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="MyGrid">
+        <Border x:Name="MyBor" Background="{StaticResource ghostWhite}" BorderBrush="{StaticResource gais}" BorderThickness="1" Margin="10,10,0,0" HorizontalAlignment="Left" Width="229" Height="108" VerticalAlignment="Top">
+            <StackPanel Margin="0,0,0,29">
+                <Label Content="Выберите тип показа" Height="31"></Label>
+                <RadioButton Content="Фильм" Height="20" Checked="SetData" x:Name="filmBtn"></RadioButton>
+                <RadioButton Content="Сериал" Height="45" RenderTransformOrigin="0.498,1.356" Checked="SetData" x:Name="serialBtn"/>
+            </StackPanel>
+        </Border>
+        <Label Content="Добавленно сеансов:" Margin="15,118,0,0" HorizontalAlignment="Left" Width="136" Height="51" VerticalAlignment="Top"/>
+        <TextBox Margin="141,123,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72" RenderTransformOrigin="-1.177,0.671" IsReadOnly="True" x:Name="sessionCountText"></TextBox>
+        <Border x:Name="MyBorder" Background="{StaticResource ghostWhite}" BorderBrush="{StaticResource gais}" Margin="10,148,561,256" BorderThickness="1">
+            <StackPanel x:Name="sessionPanel">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Введите дату(чч, мм, гггг)" Width="178" Grid.Row="0" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="dayTextBox" Grid.Row="1" Grid.Column="0" Width="50"></TextBox>
+                    <TextBox x:Name="mounthTextBox" Grid.Row="1" Grid.Column="1" Width="50"></TextBox>
+                    <TextBox x:Name="yearTextBox" Grid.Row="1" Grid.Column="2" Width="50"></TextBox>
+                    <Label Content="Введите время:" Width="178" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="hourTextBox" Grid.Row="3" Grid.Column="0" Width="50"></TextBox>
+                    <TextBox x:Name="minutesTextBox" Grid.Row="3" Grid.Column="1" Width="50"></TextBox>
+                    <Label Content="Введите стоиомтсь билета:" Width="178" Grid.Row="4" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="costTextBox" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0" Width="120"></TextBox>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Button  Content="Заполнить сеансы" Style="{StaticResource ButtonStyle}" Margin="10,333,561,186" Click="Button_Click"></Button>
+        <Button Content="Добавить сеанс" Margin="10,381,561,139" Click="Button_Click_1" Style="{StaticResource ButtonStyle}"></Button>
+        <Label Content="Добавленно показов:" HorizontalAlignment="Left" Width="136" Height="51" VerticalAlignment="Top" Margin="15,462,0,0"/>
+        <TextBox Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72" RenderTransformOrigin="-1.177,0.671" Text="0" IsReadOnly="True" Margin="167,462,0,0" x:Name="countTextBox"></TextBox>
+        <Button Content="Очистить предыдущие данные" Margin="15,495,561,10" Style="{StaticResource RedColor}" Click="Button_Click_4"></Button>
+        <Button Content="Готово" Margin="318,495,258,10" Style="{StaticResource ButtonStyle}" Click="Button_Click_5"></Button>
+        <Button Content="Отмена" Margin="459,438,258,67" Style="{StaticResource RedColor}" Click="Button_Click_3"></Button>
+        <Button Content="Добавить &#x0a;   показ" Margin="318,438,398,67"  Style="{StaticResource ButtonStyle}" Click="Button_Click_2"></Button>
+        <Border Background="{StaticResource ghostWhite}" BorderBrush="{StaticResource gais}" Margin="273,10,209,151" BorderThickness="1" x:Name="Bor">
+            <StackPanel x:Name="stackPanel"></StackPanel>
+        </Border>
+    </Grid>
+</Window>
